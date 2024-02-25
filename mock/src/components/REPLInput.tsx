@@ -27,6 +27,11 @@ export function REPLInput(props: REPLInputProps) {
    */
   const handleSubmit = () => {
     setCount(count + 1);
+    //console.log("Command string: " + commandString);
+    if (commandString === "mode"){
+      console.log("boolean evaluated true");
+      props.setVerbose(!props.verbose);
+    }
     props.setHistory([...props.history, commandString]);
     setCommandString("");
   };
