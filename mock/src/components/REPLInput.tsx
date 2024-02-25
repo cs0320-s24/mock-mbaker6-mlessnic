@@ -5,6 +5,8 @@ import { ControlledInput } from "./ControlledInput";
 interface REPLInputProps {
   history: string[];
   setHistory: Dispatch<SetStateAction<string[]>>;
+  verbose: boolean;
+  setVerbose: Dispatch<SetStateAction<boolean>>;
   // TODO: Fill this with desired props... Maybe something to keep track of the submitted commands
 }
 // You can use a custom interface or explicit fields or both! An alternative to the current function header might be:
