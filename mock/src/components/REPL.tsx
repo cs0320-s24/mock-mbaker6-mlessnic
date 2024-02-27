@@ -11,6 +11,19 @@ import { REPLInput } from "./REPLInput";
   This is a great top level component for the REPL. It's a good idea to have organize all components in a component folder.
   You don't need to do that for this gearup.
 */
+export interface REPLFunction {
+  (args: string[]): string | string[][];
+}
+
+const commandRegistry: Record<string, REPLFunction> = {};
+
+function registerCommand(commandName: string, func: REPLFunction){
+  commandRegistry[commandName] = func;
+}
+
+function executeCommand(commandName: string, args: string[]){
+  
+}
 
 export default function REPL() {
   // TODO: Add some kind of shared state that holds all the commands submitted.
