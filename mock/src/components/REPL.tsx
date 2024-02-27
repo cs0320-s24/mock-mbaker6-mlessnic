@@ -32,7 +32,7 @@ function executeCommand(commandName: string, args: string[]){
 
 export default function REPL() {
   // TODO: Add some kind of shared state that holds all the commands submitted.
-  const [history, setHistory] = useState<string[]>([]);
+  const [history, setHistory] = useState<(string|string[][])[]>([]);
   const [verbose, setVerbose] = useState<boolean>(false);
 
   const handleCommand = (command: string) => {
