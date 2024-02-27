@@ -7,6 +7,7 @@ interface REPLInputProps {
   setHistory: Dispatch<SetStateAction<string[]>>;
   verbose: boolean;
   setVerbose: Dispatch<SetStateAction<boolean>>;
+  handleCommand: Function;
   // TODO: Fill this with desired props... Maybe something to keep track of the submitted commands
 }
 // You can use a custom interface or explicit fields or both! An alternative to the current function header might be:
@@ -32,7 +33,8 @@ export function REPLInput(props: REPLInputProps) {
       console.log("boolean evaluated true");
       props.setVerbose(!props.verbose);
     }
-    props.setHistory([...props.history, commandString]);
+    //props.setHistory([...props.history, commandString]);
+    props.handleCommand(commandString);
     setCommandString("");
   };
 

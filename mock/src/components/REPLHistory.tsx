@@ -9,8 +9,8 @@ export function REPLHistory(props: REPLHistoryProps) {
   if (props.verbose){
     return (
       <div className="repl-history">
-      {props.history.map((elem, idx) => (
-        <p key={idx}>Command: {elem}</p>
+      {props.history.map((output, idx) => (
+        <p key={idx}>Output: {output}</p>
         
       ))}
       {/*TODO: add display of output here */}
@@ -19,8 +19,8 @@ export function REPLHistory(props: REPLHistoryProps) {
   } else{
     return (
       <div className="repl-history">
-        {props.history.map((elem, idx) => (
-          <p key={idx}>{elem}</p>
+        {props.history.map((command, idx) => (
+          <p key={idx}>{command}</p>
         ))}
         {/*TODO: add display of output here */}
       </div>

@@ -22,13 +22,37 @@ function registerCommand(commandName: string, func: REPLFunction){
 }
 
 function executeCommand(commandName: string, args: string[]){
-  
+  const func = commandRegistry[commandName];
+  if (func){
+    return func(args)
+  } else {
+    return `Command "${commandName}" not found`;
+  }
 }
 
 export default function REPL() {
   // TODO: Add some kind of shared state that holds all the commands submitted.
   const [history, setHistory] = useState<string[]>([]);
   const [verbose, setVerbose] = useState<boolean>(false);
+
+  const handleCommand = (command: string) => {
+    const args = command.split(/\s+/); // Split command string into arguments
+    const commandName = args.shift(); // Extract the command name
+    if (commandName){
+      const output = executeCommand(commandName, args); // Execute the command
+      
+      if (typeof output === "string"){
+        let newOut: string[][] = [[output]]
+        setHistory([...history, newOut]); // Update history with the output
+      } else {
+        setHistory([...history, output]);
+      }
+      
+    } else {
+      setHistory([...history, "No command given"]);
+    }
+    
+  };
 
   return (
     <div className="repl">
@@ -42,6 +66,7 @@ export default function REPL() {
         setHistory={setHistory}
         verbose={verbose}
         setVerbose={setVerbose}
+        handleCommand={handleCommand}
       />
     </div>
   );
