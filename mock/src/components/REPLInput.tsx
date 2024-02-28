@@ -2,6 +2,11 @@ import "../styles/main.css";
 import { Dispatch, SetStateAction, useState } from "react";
 import { ControlledInput } from "./ControlledInput";
 import { HistoryElement } from "./REPL";
+import {
+  populateCommandRegistry,
+  commandRegistry,
+  executeCommand,
+} from "./Commands";
 
 interface REPLInputProps {
   history: HistoryElement[];
@@ -16,36 +21,38 @@ export function REPLInput(props: REPLInputProps) {
   const [commandString, setCommandString] = useState<string>("");
   const [count, setCount] = useState<number>(0);
 
-  
-
   //populate command map with base functions then call executefunction(command) from map
+  populateCommandRegistry();
 
   const handleSubmit = () => {
-  //console.log("Command string: " + commandString);
-  const args = commandString.split(/\s+/); // Split command string into arguments
-  const commandName = args.shift(); // Extract the command name (first index of list)
+    //console.log("Command string: " + commandString);
+    const args = commandString.split(/\s+/); // Split command string into arguments
+    const commandName = args.shift(); // Extract the command name (first index of list)
 
-  if (commandName) {
-    if (commandString === "mode") {
-      //console.log("boolean evaluated true");
-      props.setVerbose(!props.verbose);
-    } else {
-      const output = executeCommand(commandName, args);
-      if (props.verbose) {
-        props.setHistory([...props.history, "Command: " + commandString + "\n" + "Output: " + output]);
+    if (commandName) {
+      if (commandString === "mode") {
+        //console.log("boolean evaluated true");
+        props.setVerbose(!props.verbose);
       } else {
-        props.setHistory([...props.history, output])
+        const output = 
+        //const output = executeCommand(commandName, args);
+        if (props.verbose) {
+          props.setHistory([
+            ...props.history,
+            "Command: " + commandString + "\n" + "Output: " + output,
+          ]);
+        } else {
+          props.setHistory([...props.history, output]);
+        }
       }
+      // Execute the command
+    } else {
+      props.setHistory([...props.history, "No command given"]);
     }
-     // Execute the command  
-  } else {
-    props.setHistory([...props.history, "No command given"]);
-  }
 
-  
-  //props.setHistory([...props.history, commandString]);
-  //props.handleCommand(commandString);
-  setCommandString("");
+    //props.setHistory([...props.history, commandString]);
+    //props.handleCommand(commandString);
+    setCommandString("");
   };
 
   return (
