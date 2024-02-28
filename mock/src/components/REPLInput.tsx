@@ -6,6 +6,7 @@ import { HistoryElement } from "./REPL";
 interface REPLInputProps {
   history: HistoryElement[];
   setHistory: Dispatch<SetStateAction<HistoryElement[]>>;
+
   verbose: boolean;
   setVerbose: Dispatch<SetStateAction<boolean>>;
   //handleCommand: Function;
