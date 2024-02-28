@@ -8,7 +8,7 @@ import { REPLFunction } from "./REPL";
 const commandRegistry = new Map();
 commandRegistry.set("load", load_csv);
 commandRegistry.set("view", view_csv);
-commandRegistry.set("serach", search_csv);
+commandRegistry.set("search", search_csv);
 
 function registerCommand(commandName: string, func: REPLFunction) {
   commandRegistry.set(commandName, func);
