@@ -3,8 +3,8 @@ import { Dispatch, SetStateAction, useState } from "react";
 import { ControlledInput } from "./ControlledInput";
 
 interface REPLInputProps {
-  history: string[];
-  setHistory: Dispatch<SetStateAction<string[]>>;
+  history: (string|string[][])[];
+  setHistory: Dispatch<SetStateAction<(string|string[][])[]>>;
   verbose: boolean;
   setVerbose: Dispatch<SetStateAction<boolean>>;
   handleCommand: Function;
