@@ -12,7 +12,6 @@ export function REPLHistory(props: REPLHistoryProps) {
     return (
       //if output (history) is string
       <div className="repl-history">
-
         {props.history.map((output, idx) => (
           <p key={idx}>Output: {output}</p>
         ))}
@@ -24,17 +23,15 @@ export function REPLHistory(props: REPLHistoryProps) {
     return (
       <div className="repl-history">
         {props.history.map((output, idx) => (
-           <div key={idx}>
-           {Array.isArray(output) ? (
-             // If output is a 2D array, display each row as a paragraph
-             output.map((row, rowIdx) => (
-               <p key={rowIdx}>{row.join(", ")}</p>
-             ))
-           ) : (
-             // If output is a string, display it as a paragraph
-             <p>{output}</p>
-           )}
-         </div>
+          <div key={idx}>
+            {Array.isArray(output) ? (
+              // If output is a 2D array, display each row as a paragraph
+              output.map((row, rowIdx) => <p key={rowIdx}>{row.join(", ")}</p>)
+            ) : (
+              // If output is a string, display it as a paragraph
+              <p>{output}</p>
+            )}
+          </div>
         ))}
         {/*TODO: add display of output here */}
       </div>
