@@ -5,13 +5,16 @@ import { REPLFunction } from "./REPL";
 
 //const commandRegistry: Record<string, REPLFunction> = {};
 
-const commandRegistry = new Map();
-commandRegistry.set("load", load_csv);
-commandRegistry.set("view", view_csv);
-commandRegistry.set("search", search_csv);
+export const commandRegistry = new Map();
 
 function registerCommand(commandName: string, func: REPLFunction) {
   commandRegistry.set(commandName, func);
+}
+
+export function populateCommandRegistry() {
+  commandRegistry.set("load", load_csv);
+  commandRegistry.set("view", view_csv);
+  commandRegistry.set("search", search_csv);
 }
 
 export function executeCommand(commandName: string, args: string[]) {
