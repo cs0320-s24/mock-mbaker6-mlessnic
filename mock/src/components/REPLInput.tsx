@@ -17,6 +17,7 @@ export function REPLInput(props: REPLInputProps) {
   const [count, setCount] = useState<number>(0);
 
   //populate command map with base functions then call executefunction(command) from map
+  //command_map = 
 
   //console.log("Command string: " + commandString);
   const args = commandString.split(/\s+/); // Split command string into arguments
@@ -32,6 +33,9 @@ export function REPLInput(props: REPLInputProps) {
   if (commandString === "mode") {
     console.log("boolean evaluated true");
     props.setVerbose(!props.verbose);
+  }
+  else {
+    props.setHistory([...props.history, "Command: " + commandString + "\n" + "Output: " + ])
   }
   //props.setHistory([...props.history, commandString]);
   //props.handleCommand(commandString);

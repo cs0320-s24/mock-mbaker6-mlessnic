@@ -2,9 +2,6 @@ import { useState } from "react";
 import "../styles/main.css";
 import { REPLHistory } from "./REPLHistory";
 import { REPLInput } from "./REPLInput";
-import { view_csv } from "./CSVFunctions";
-import { load_csv } from "./CSVFunctions";
-import { search_csv } from "./CSVFunctions";
 
 export interface REPLFunction {
   (args: string[]): string | string[][];
