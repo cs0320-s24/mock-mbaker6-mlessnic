@@ -34,16 +34,23 @@ export function REPLInput(props: REPLInputProps) {
         //console.log("boolean evaluated true");
         props.setVerbose(!props.verbose);
       } else {
-        const output = 
         //const output = executeCommand(commandName, args);
-        if (props.verbose) {
-          props.setHistory([
-            ...props.history,
-            "Command: " + commandString + "\n" + "Output: " + output,
-          ]);
+
+        const func = commandRegistry.get(commandName);
+        if (func) {
+          const output = func(args);
+          if (props.verbose) {
+            props.setHistory([
+              ...props.history,
+              "Command: " + commandString + "\n" + "Output: " + output,
+            ]);
+          } else {
+            props.setHistory([...props.history, output]);
+          }
         } else {
-          props.setHistory([...props.history, output]);
+          props.setHistory([...props.history,  `Command "${commandName}" not found`]);
         }
+        
       }
       // Execute the command
     } else {
