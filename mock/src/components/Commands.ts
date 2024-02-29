@@ -22,7 +22,7 @@ export function executeCommand(commandName: string, args: string[]) {
   if (func) {
     return func(args);
   } else {
-    return `Command "${commandName}" not found`;
+    return "Command " + commandName + " not found";
   }
 }
 

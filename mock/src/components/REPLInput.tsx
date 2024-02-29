@@ -39,6 +39,7 @@ export function REPLInput(props: REPLInputProps) {
         const func = commandRegistry.get(commandName);
         if (func) {
           const output = func(args);
+          console.log(output);
           let HistoryElement: HistoryElement;
           if (props.verbose) {
             HistoryElement = {
@@ -57,7 +58,7 @@ export function REPLInput(props: REPLInputProps) {
         } else {
           const hElem: HistoryElement = {
             Command: commandName,
-            Output: "Command" + commandName + "not found",
+            Output: "Command " + commandName + " not found",
           };
           props.setHistory([...props.history, hElem]);
         }
