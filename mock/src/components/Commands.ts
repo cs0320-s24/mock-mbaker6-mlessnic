@@ -49,7 +49,23 @@ export function load_csv(filepath: string) {
 }
 
 export function view_csv() {
-  return csv;
+  if(csv){
+    return csv;
+  } else {
+    return "No csv loaded";
+  }
+  
 }
 
-export function search_csv(query: string, column: string, value: string, hasheader: boolean) {}
+export function search_csv(query: string[]) {
+  let output: string[][];
+  //arbitrarily get the first row of the mocked data, to test for functionality
+  output = ([["Searching " + filePath + "with query " + query.join()]]);
+  if(csv){
+    output.concat(...output, csv[0]);
+    return output;
+  } else {
+    return "No csv loaded";
+  }
+  
+}
