@@ -8,7 +8,8 @@ export interface REPLFunction {
 }
 
 export type HistoryElement = {
-  outputType: string | string[][];
+  Command: string;
+  Output: string | string[][];
 };
 
 export default function REPL() {
