@@ -38,11 +38,13 @@ let csv: string[][];
 let filePath: string;
 
 export function load_csv(filepath: string) {
+  const exampleCSV3 = [["The", "song", "remains", "the", "same."], ["The", "song", "remains", "the", "same."]];
   filePath = filepath;
   csv = mockedDataSourceMap.get(filepath);
   console.log("csv: " + mockedDataSourceMap.get(filepath))
   if(!mockedDataSourceMap.get(filepath)){
-    return "No file found at destination " + filepath;
+    //return "No file found at destination " + filepath;
+    return exampleCSV3;
   } else {
     return "Loading file at destination " + filepath;
   }
