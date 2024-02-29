@@ -7,6 +7,7 @@ import {
   commandRegistry,
   executeCommand,
 } from "./Commands";
+import { populateDataSourceMap } from "./mockedJson";
 
 interface REPLInputProps {
   history: HistoryElement[];
@@ -23,6 +24,7 @@ export function REPLInput(props: REPLInputProps) {
 
   //populate command map with base functions then call executefunction(command) from map
   populateCommandRegistry();
+  populateDataSourceMap();
 
   const handleSubmit = () => {
     //console.log("Command string: " + commandString);
@@ -41,22 +43,6 @@ export function REPLInput(props: REPLInputProps) {
           const output = func(args);
           console.log(output);
           let HistoryElement: HistoryElement;
-          // Verbosity already handled in REPLHistory
-          // if (props.verbose) {
-          //   HistoryElement = {
-          //     // May need to check if verbose in replHistory too
-          //     // This component might be superfluous, gets overwritten but REPLHistory
-          //     //  logic already handles the verbose case
-          //     // Can only test when a valid command is called
-          //     Command: "Command: " + commandName,
-          //     Output: output,
-          //   };
-          // } else {
-          //   HistoryElement = {
-          //     Command: commandName,
-          //     Output: output,
-          //   };
-          // }
           // Regardless of if verbose is true or not, history gets assigned the same way
           HistoryElement = {
                 Command: commandName,

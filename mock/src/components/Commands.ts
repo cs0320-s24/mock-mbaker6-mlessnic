@@ -2,7 +2,7 @@
 // import { view_csv } from "./CSVFunctions";
 // import { search_csv } from "./CSVFunctions";
 import { REPLFunction } from "./REPL";
-import { mockedDataSourceMap } from "./mockedJson";
+import { mockedDataSourceMap, populateDataSourceMap } from "./mockedJson";
 
 //const commandRegistry: Record<string, REPLFunction> = {};
 
@@ -29,8 +29,10 @@ export function executeCommand(commandName: string, args: string[]) {
 }
 
 let csv: string[][];
+let filePath: string;
 
 export function load_csv(filepath: string) {
+  filePath = filepath;
   csv = mockedDataSourceMap.get(filepath);
   console.log("csv: " + mockedDataSourceMap.get(filepath))
   if(!csv){
@@ -45,4 +47,4 @@ export function view_csv() {
   return csv;
 }
 
-export function search_csv(column: string, value: string, hasheader: boolean) {}
+export function search_csv(query: string, column: string, value: string, hasheader: boolean) {}
