@@ -6,6 +6,7 @@ import {
   populateCommandRegistry,
   commandRegistry,
   executeCommand,
+  populateMockedData,
 } from "./Commands";
 import { populateDataSourceMap } from "./mockedJson";
 

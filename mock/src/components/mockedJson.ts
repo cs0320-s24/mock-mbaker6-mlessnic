@@ -11,16 +11,20 @@ const exampleCSV2 = [
   [10000, 2000, 30, 40, 50, 60, 70, 80, 90, 100],
 ];
 
+const exampleCSV3 = [["The", "song", "remains", "the", "same."], ["The", "song", "remains", "the", "same."]];
+
 // const record = {
 //   "datasource1.csv": exampleCSV1,
 //   "datasource2.csv": exampleCSV2,
 // };
 
-export const mockedDataSourceMap = new Map();
+export const mockedDataSourceMap = new Map<string, string[][]>();
 // mockedDataSourceMap.set("datasource1.csv", exampleCSV1);
 // mockedDataSourceMap.set("datasource2.csv", exampleCSV2);
 
 export function populateDataSourceMap() {
-  mockedDataSourceMap.set("datasource1.csv", exampleCSV1);
-  mockedDataSourceMap.set("datasource2.csv", exampleCSV2);
+  // mockedDataSourceMap.set("datasource1.csv", exampleCSV1);
+  // mockedDataSourceMap.set("datasource2.csv", exampleCSV2);
+  // console.log("Populating map");
+  mockedDataSourceMap.set("strings.csv", exampleCSV3)
 }
