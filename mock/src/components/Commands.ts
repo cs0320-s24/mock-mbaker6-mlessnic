@@ -19,6 +19,7 @@ export function populateCommandRegistry() {
 }
 
 export function populateMockedData(){
+  // Component unused, called populateDataSourceMap() in REPLInput directly
   populateDataSourceMap();
   // console.log("Loading csvs");
 }
