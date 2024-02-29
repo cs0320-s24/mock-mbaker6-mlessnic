@@ -18,6 +18,7 @@ export function populateCommandRegistry() {
 }
 
 export function executeCommand(commandName: string, args: string[]) {
+  // Component unused, handled directly in REPLInput
   const func = commandRegistry.get(commandName);
   if (func) {
     return func(args);

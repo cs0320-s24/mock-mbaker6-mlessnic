@@ -41,6 +41,7 @@ export function REPLInput(props: REPLInputProps) {
           const output = func(args);
           console.log(output);
           let HistoryElement: HistoryElement;
+          // Verbosity already handled in REPLHistory
           // if (props.verbose) {
           //   HistoryElement = {
           //     // May need to check if verbose in replHistory too
