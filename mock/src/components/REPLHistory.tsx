@@ -10,15 +10,22 @@ export function REPLHistory(props: REPLHistoryProps) {
 
   //if (props.history === "string") {
     return (
-      
       <div className="repl-history">
-        {// Have to check if OUTPUT is a string, not the whole history
-        props.history.map((output, idx) => (
+        {props.history.map((element, idx) => (
           <div key={idx}>
-            {Array.isArray(output) ? (
+            {/* If verbose flag is set, print the command and output strings */}
+            {props.verbose && (
+              <p>
+                Command: {element.Command}
+                <br />
+                Output: {Array.isArray(element.Output) ? "See table below" : element.Output}
+              </p>
+            )}
+            {/* Render output as a table if it's a 2D array */}
+            {Array.isArray(element.Output) && (
               <table>
                 <tbody>
-                  {output.map((row, rowIdx) => (
+                  {element.Output.map((row, rowIdx) => (
                     <tr key={rowIdx}>
                       {row.map((cell, cellIdx) => (
                         <td key={cellIdx}>{cell}</td>
@@ -27,8 +34,10 @@ export function REPLHistory(props: REPLHistoryProps) {
                   ))}
                 </tbody>
               </table>
-            ) : (
-              <p>{output}</p>
+            )}
+            {/* Render output directly if it's a string */}
+            {!Array.isArray(element.Output) && !props.verbose && (
+              <p>{element.Output}</p>
             )}
           </div>
         ))}

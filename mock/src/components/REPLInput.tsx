@@ -39,37 +39,41 @@ export function REPLInput(props: REPLInputProps) {
         const func = commandRegistry.get(commandName);
         if (func) {
           const output = func(args);
+          let HistoryElement: HistoryElement;
           if (props.verbose) {
-            let HistoryElement = {
+            HistoryElement = {
+              // May need to check if verbose in replHistory too
               Command: "Command: " + commandName,
-              Output: "Output: " + output,
+              Output: output,
             };
-            props.setHistory([...props.history, HistoryElement]);
           } else {
-            let HistoryElement = {
+            HistoryElement = {
               Command: commandName,
               Output: output,
             };
-            props.setHistory([...props.history, HistoryElement.Output]);
           }
+          // Regardless of if verbose is true or not, history gets assigned the same way
+          props.setHistory([...props.history, HistoryElement]);
         } else {
-          let HistoryElement = {
+          const hElem: HistoryElement = {
             Command: commandName,
             Output: "Command" + commandName + "not found",
           };
-          props.setHistory([...props.history, HistoryElement.Output]);
+          props.setHistory([...props.history, hElem]);
         }
       }
     } else {
-      let HistoryElement = {
-        Command: commandName,
+      // When no command is given, command can be the empty string (" ")
+      const hElem: HistoryElement = {
+        Command: " ",
         Output: "No command given",
       };
-      props.setHistory([...props.history, HistoryElement.Output]);
+      props.setHistory([...props.history, hElem]);
     }
 
     //props.setHistory([...props.history, commandString]);
     //props.handleCommand(commandString);
+    // Reset the command string
     setCommandString("");
   };
 
