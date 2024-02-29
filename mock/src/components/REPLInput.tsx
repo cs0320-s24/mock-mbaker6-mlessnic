@@ -40,21 +40,32 @@ export function REPLInput(props: REPLInputProps) {
         if (func) {
           const output = func(args);
           if (props.verbose) {
-            props.setHistory([
-              ...props.history,
-              "Command: " + commandString + "\n" + "Output: " + output,
-            ]);
+            let HistoryElement = {
+              Command: "Command: " + commandName,
+              Output: "Output: " + output,
+            };
+            props.setHistory([...props.history, HistoryElement]);
           } else {
-            props.setHistory([...props.history, output]);
+            let HistoryElement = {
+              Command: commandName,
+              Output: output,
+            };
+            props.setHistory([...props.history, HistoryElement.Output]);
           }
         } else {
-          props.setHistory([...props.history,  `Command "${commandName}" not found`]);
+          let HistoryElement = {
+            Command: commandName,
+            Output: "Command" + commandName + "not found",
+          };
+          props.setHistory([...props.history, HistoryElement.Output]);
         }
-        
       }
-      // Execute the command
     } else {
-      props.setHistory([...props.history, "No command given"]);
+      let HistoryElement = {
+        Command: commandName,
+        Output: "No command given",
+      };
+      props.setHistory([...props.history, HistoryElement.Output]);
     }
 
     //props.setHistory([...props.history, commandString]);
