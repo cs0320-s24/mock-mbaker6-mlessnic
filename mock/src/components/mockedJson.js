@@ -16,6 +16,6 @@ const exampleCSV2 = [
 //   "datasource2.csv": exampleCSV2,
 // };
 
-const mockedDataSourceMap = new Map();
+export const mockedDataSourceMap = new Map();
 mockedDataSourceMap.set("datasource1.csv", exampleCSV1);
 mockedDataSourceMap.set("datasource2.csv", exampleCSV2);

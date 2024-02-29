@@ -2,6 +2,7 @@
 // import { view_csv } from "./CSVFunctions";
 // import { search_csv } from "./CSVFunctions";
 import { REPLFunction } from "./REPL";
+import { mockedDataSourceMap } from "./mockedJson";
 
 //const commandRegistry: Record<string, REPLFunction> = {};
 
@@ -27,10 +28,21 @@ export function executeCommand(commandName: string, args: string[]) {
   }
 }
 
+let csv: string[][];
+
 export function load_csv(filepath: string) {
-  return "Loading file at destination " + filepath;
+  csv = mockedDataSourceMap.get(filepath);
+  console.log("csv: " + mockedDataSourceMap.get(filepath))
+  if(!csv){
+    return "No file found at destination " + filepath;
+  } else {
+    return "Loading file at destination " + filepath;
+  }
+  
 }
 
-export function view_csv() {}
+export function view_csv() {
+  return csv;
+}
 
 export function search_csv(column: string, value: string, hasheader: boolean) {}
