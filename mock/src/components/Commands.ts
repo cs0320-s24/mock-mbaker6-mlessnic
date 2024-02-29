@@ -26,7 +26,9 @@ export function executeCommand(commandName: string, args: string[]) {
   }
 }
 
-export function load_csv(filepath: string) {}
+export function load_csv(filepath: string) {
+  return "Loading file at destination " + filepath;
+}
 
 export function view_csv() {}
 
