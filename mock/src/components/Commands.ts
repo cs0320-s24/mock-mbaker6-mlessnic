@@ -18,7 +18,7 @@ export function populateCommandRegistry() {
   commandRegistry.set("search", search_csv);
 }
 
-export function populateMockedData(){
+export function populateMockedData() {
   // Component unused, called populateDataSourceMap() in REPLInput directly
   populateDataSourceMap();
   // console.log("Loading csvs");
@@ -38,41 +38,47 @@ let csv: string[][];
 let filePath: string;
 
 export function load_csv(filepath: string) {
-  
   filePath = filepath;
-  csv = mockedData.get(filepath);
-  console.log("csv: " + mockedData.get(filepath));
-  if(!mockedData.get(filepath)){
+  // csv = mockedData.get(filepath);
+  if (filepath in datamocked) {
+    csv = datamocked[filepath];
+    console.log("csv: " + datamocked[filepath]);
+  } else {
+  }
+
+  if (!(filepath in datamocked)) {
     return "No file found at destination " + filepath;
     //return exampleCSV3;
   } else {
     return "Loading file at destination " + filepath;
   }
-  
 }
 
 export function view_csv() {
-  if(csv){
+  if (csv) {
     return csv;
   } else {
     return "No csv loaded";
   }
-  
 }
 
 export function search_csv(query: string[]) {
   let output: string[][];
   //arbitrarily get the first row of the mocked data, to test for functionality
-  output = ([["Searching " + filePath + "with query " + query.join()]]);
-  if(csv){
+  output = [["Searching " + filePath + "with query " + query.join()]];
+  if (csv) {
     output.concat(...output, csv[0]);
     return output;
   } else {
     return "No csv loaded";
   }
-  
 }
 
-const mockedData = new Map<string, string[][]>([
-  ["strings.csv",[["The", "song", "remains", "the", "same."], ["The", "song", "remains", "the", "same."]]]
-]);
+let datamocked: {
+  [key: string]: string[][];
+} = {};
+
+datamocked["strings.csv"] = [
+  ["The", "song", "remains", "the", "same."],
+  ["The", "song", "remains", "the", "same."],
+];
