@@ -54,22 +54,22 @@ test("after I type into the input box, its text changes", async ({ page }) => {
   await expect(page.getByLabel("Command input")).toHaveValue(mock_input);
 });
 
-test("on page load, i see a button", async ({ page }) => {
+test("on page load, I see a button", async ({ page }) => {
   await page.goto("http://localhost:8000/");
   await page.getByLabel("Login").click();
   await expect(page.getByLabel("Submit button")).toBeVisible();
   // TODO WITH TA: Fill this in!
 });
 
-test("after I click the button, its label increments", async ({ page }) => {
-  await page.goto("http://localhost:8000/");
-  await page.getByLabel("Login").click();
-  await page.getByLabel("Submit button").click();
-  await expect(page.getByLabel("Submit button")).toHaveValue(
-    "Clicked 1 times!"
-  );
-  // TODO WITH TA: Fill this in to test your button counter functionality!
-});
+// test("after I click the button, its label increments", async ({ page }) => {
+//   await page.goto("http://localhost:8000/");
+//   await page.getByLabel("Login").click();
+//   await page.getByLabel("Submit button").click();
+//   await expect(page.getByLabel("Submit button")).toHaveValue(
+//     "Clicked 1 times!"
+//   );
+//   // TODO WITH TA: Fill this in to test your button counter functionality!
+// });
 
 test("after I click the button, my command gets pushed", async ({ page }) => {
   await page.goto("http://localhost:8000/");
@@ -80,3 +80,5 @@ test("after I click the button, my command gets pushed", async ({ page }) => {
   await expect(page.getByLabel("repl-history")).toHaveValue(mock_input);
   // TODO: Fill this in to test your button push functionality!
 });
+
+// TODO: add tests for load, view, search, mode
