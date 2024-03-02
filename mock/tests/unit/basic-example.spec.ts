@@ -31,10 +31,22 @@ test("View returns fail with no loaded csv", () => {
   expect(commands.view_csv()).toBe("No csv loaded");
 });
 
+test("Search returns fail with no loaded csv", () => {
+  commands.load_csv(["", "false"]);
+  expect(commands.search_csv(["value", "1"])).toBe("No csv loaded");
+});
+
 test("Load returns success with good filename", () => {
   expect(commands.load_csv(["strings.csv", "false"])).toBe(
     "Loading file at destination strings.csv"
   );
+});
+
+test("Search returns success with loaded csv", () => {
+  commands.load_csv(["strings.csv", "false"]);
+  expect(commands.search_csv(["value", "1"])).toStrictEqual([
+    datamocked["strings.csv"][0],
+  ]);
 });
 
 test("Load returns fail with no hasHeader argument provided", () => {
@@ -61,3 +73,4 @@ test("View returns previously loaded csv if load_csv fails", () => {
   let csv2 = commands.load_csv(["no_csv", "true"]);
   expect(commands.view_csv()).toStrictEqual(datamocked["strings.csv"]);
 });
+
