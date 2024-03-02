@@ -1,11 +1,18 @@
 import "../styles/main.css";
 import { HistoryElement } from "./REPL";
 
+/**
+ * Props interface for history component.
+ */
 interface REPLHistoryProps {
   history: HistoryElement[];
   verbose: boolean;
-  // TODO: Fill with some shared state tracking all the pushed commands
 }
+/**
+ * Build the webpage using the list of history elements. List is given by REPL and built within the REPLInput.
+ * @param props - Props for history component.
+ * @returns {JSX.Element} the REPL history component of the page.
+ */
 export function REPLHistory(props: REPLHistoryProps) {
 
   //if (props.history === "string") {
@@ -43,22 +50,4 @@ export function REPLHistory(props: REPLHistoryProps) {
         ))}
       </div>
     );
-  // } else {
-  //   //if output is a list of list of strings: return a html table
-  //   return (
-  //     <div className="repl-history">
-  //       {props.history.map((output, idx) => (
-  //         <div key={idx}>
-  //           {Array.isArray(output) ? (
-  //             // If output is a 2D array, display each row as a paragraph
-  //             output.map((row, rowIdx) => <p key={rowIdx}>{row.join(", ")}</p>)
-  //           ) : (
-  //             // If output is a string, display it as a paragraph
-  //             <p>{output}</p>
-  //           )}
-  //         </div>
-  //       ))}
-  //     </div>
-  //   );
-  // }
 }

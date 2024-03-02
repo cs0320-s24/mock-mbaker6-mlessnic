@@ -5,20 +5,33 @@ import { HistoryElement } from "./REPL";
 import {
   populateCommandRegistry,
   commandRegistry,
-  executeCommand,
-  populateMockedData,
 } from "./Commands";
 import { populateDataSourceMap } from "./mockedJson";
 
+/**
+ * Props interface for REPLInput component.
+ */
 interface REPLInputProps {
+  /**
+   * List of history elements and its setter.
+   */
   history: HistoryElement[];
   setHistory: Dispatch<SetStateAction<HistoryElement[]>>;
 
+  /**
+   * Flag and setter indicating if page is in verbose mode or not.
+   */
   verbose: boolean;
   setVerbose: Dispatch<SetStateAction<boolean>>;
   //handleCommand: Function;
 }
 
+/**
+ * Component for handling user input and displaying the REPL interface. Does not display directly but
+ * passes information up to REPL about what the user provided.
+ * @param {REPLInputProps} props - Props for the REPLInput component.
+ * @returns {JSX.Element} The REPL input component.
+ */
 export function REPLInput(props: REPLInputProps) {
   const [commandString, setCommandString] = useState<string>("");
   const [count, setCount] = useState<number>(0);
@@ -27,6 +40,9 @@ export function REPLInput(props: REPLInputProps) {
   populateCommandRegistry();
   populateDataSourceMap();
 
+  /**
+   * Handles user clicking the submit button, adds command and output to list of history elements.
+   */
   const handleSubmit = () => {
     //console.log("Command string: " + commandString);
     const args = commandString.split(/\s+/); // Split command string into arguments
@@ -67,8 +83,6 @@ export function REPLInput(props: REPLInputProps) {
       props.setHistory([...props.history, hElem]);
     }
 
-    //props.setHistory([...props.history, commandString]);
-    //props.handleCommand(commandString);
     // Reset the command string
     setCommandString("");
   };
@@ -86,7 +100,6 @@ export function REPLInput(props: REPLInputProps) {
 
       <button aria-label={"Submit button"} onClick={handleSubmit}>
         Submit
-        {/* Count is {count} */}
       </button>
     </div>
   );
