@@ -1,5 +1,7 @@
 import { REPLFunction } from "./REPL";
-import { mockedDataSourceMap, populateDataSourceMap } from "./mockedJson";
+import {
+  datamocked,
+} from "./mockedJson";
 
 /**
  * Map to store registered commands.
@@ -93,21 +95,3 @@ export function search_csv(args: string[]) {
     return "No csv loaded";
   }
 }
-
-/**
- * Object containing mocked data for CSVs.
- */
-let datamocked: {
-  [key: string]: string[][];
-} = {};
-
-// Mocked data
-datamocked["strings.csv"] = [
-  ["The", "song", "remains", "the", "same."],
-  ["The", "song", "remains", "the", "same."],
-];
-
-datamocked["more_strings.csv"] = [
-  ["More", "strings", "for"],
-  ["the", "string", "god"],
-];

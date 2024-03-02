@@ -2,11 +2,7 @@ import "../styles/main.css";
 import { Dispatch, SetStateAction, useState } from "react";
 import { ControlledInput } from "./ControlledInput";
 import { HistoryElement } from "./REPL";
-import {
-  populateCommandRegistry,
-  commandRegistry,
-} from "./Commands";
-import { populateDataSourceMap } from "./mockedJson";
+import { populateCommandRegistry, commandRegistry } from "./Commands";
 
 /**
  * Props interface for REPLInput component.
@@ -38,7 +34,6 @@ export function REPLInput(props: REPLInputProps) {
 
   //populate command map with base functions then call executefunction(command) from map
   populateCommandRegistry();
-  populateDataSourceMap();
 
   /**
    * Handles user clicking the submit button, adds command and output to list of history elements.
@@ -53,8 +48,6 @@ export function REPLInput(props: REPLInputProps) {
         //console.log("boolean evaluated true");
         props.setVerbose(!props.verbose);
       } else {
-        //const output = executeCommand(commandName, args);
-
         const func = commandRegistry.get(commandName);
         if (func) {
           const output = func(args);
@@ -62,9 +55,9 @@ export function REPLInput(props: REPLInputProps) {
           let HistoryElement: HistoryElement;
           // Regardless of if verbose is true or not, history gets assigned the same way
           HistoryElement = {
-                Command: commandName,
-                Output: output,
-              };
+            Command: commandName,
+            Output: output,
+          };
           props.setHistory([...props.history, HistoryElement]);
         } else {
           const hElem: HistoryElement = {

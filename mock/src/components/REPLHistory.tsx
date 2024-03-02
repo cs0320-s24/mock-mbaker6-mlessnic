@@ -14,7 +14,6 @@ interface REPLHistoryProps {
  * @returns {JSX.Element} the REPL history component of the page.
  */
 export function REPLHistory(props: REPLHistoryProps) {
-  //if (props.history === "string") {
   return (
     <div className="repl-history" aria-label={"repl-history"}>
       {props.history.map((element, idx) => (
