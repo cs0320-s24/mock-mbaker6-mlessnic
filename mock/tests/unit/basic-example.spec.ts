@@ -24,31 +24,40 @@ import { datamocked } from "../../src/components/mockedJson";
 // // For more information on how to make unit tests, visit:
 // // https://jestjs.io/docs/using-matchers
 
+test("View returns fail with no loaded csv", () => {
+  expect(commands.load_csv(["", "false"])).toBe(
+    "No file found at destination "
+  );
+  expect(commands.view_csv()).toBe("No csv loaded");
+});
+
 test("Load returns success with good filename", () => {
-  expect(commands.load_csv("strings.csv")).toBe(
+  expect(commands.load_csv(["strings.csv", "false"])).toBe(
     "Loading file at destination strings.csv"
   );
 });
 
+test("Load returns fail with no hasHeader argument provided", () => {
+  expect(commands.load_csv(["strings.csv"])).toBe(
+    'Missing or incorrect hasHeader argument, please provide the command in the format: \n"load <filename> true|false"'
+  );
+});
+
 test("Load returns fail with bad filename", () => {
-  expect(commands.load_csv("bad_string")).toBe(
+  expect(commands.load_csv(["bad_string", "false"])).toBe(
     "No file found at destination bad_string"
   );
 });
 
 // TODO: add more test cases
-test("Load returns fail with no filename", () => {
-  expect(commands.load_csv("")).toBe("Please provide filepath to load");
-});
 
 test("View returns success with loaded csv", () => {
-  let csv = commands.load_csv("more_strings.csv");
-  expect(commands.view_csv()).toBe(datamocked["more_strings.csv"]);
+  let csv = commands.load_csv(["more_strings.csv", "false"]);
+  expect(commands.view_csv()).toStrictEqual(datamocked["more_strings.csv"]);
 });
 
-test("View returns fail with no loaded csv", () => {
-  expect(commands.load_csv("bad_file.csv")).toBe(
-    "No file found at destination bad_file.csv"
-  );
-  expect(commands.view_csv()).toBe("No csv loaded");
+test("View returns previously loaded csv if load_csv fails", () => {
+  let csv1 = commands.load_csv(["strings.csv", "false"]);
+  let csv2 = commands.load_csv(["no_csv", "true"]);
+  expect(commands.view_csv()).toStrictEqual(datamocked["strings.csv"]);
 });
