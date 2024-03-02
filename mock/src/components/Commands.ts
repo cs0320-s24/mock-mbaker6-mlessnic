@@ -2,7 +2,11 @@
 // import { view_csv } from "./CSVFunctions";
 // import { search_csv } from "./CSVFunctions";
 import { REPLFunction } from "./REPL";
-import { mockedDataSourceMap, populateDataSourceMap } from "./mockedJson";
+import {
+  mockedDataSourceMap,
+  populateDataSourceMap,
+  datamocked,
+} from "./mockedJson";
 
 //const commandRegistry: Record<string, REPLFunction> = {};
 
@@ -74,16 +78,16 @@ export function search_csv(query: string[]) {
   }
 }
 
-let datamocked: {
-  [key: string]: string[][];
-} = {};
+// let datamocked: {
+//   [key: string]: string[][];
+// } = {};
 
-datamocked["strings.csv"] = [
-  ["The", "song", "remains", "the", "same."],
-  ["The", "song", "remains", "the", "same."],
-];
+// datamocked["strings.csv"] = [
+//   ["The", "song", "remains", "the", "same."],
+//   ["The", "song", "remains", "the", "same."],
+// ];
 
-datamocked["more_strings.csv"] = [
-  ["More", "strings", "for"],
-  ["the", "string", "god"]
-];
+// datamocked["more_strings.csv"] = [
+//   ["More", "strings", "for"],
+//   ["the", "string", "god"],
+// ];
