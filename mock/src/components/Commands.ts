@@ -39,24 +39,57 @@ export function executeCommand(commandName: string, args: string[]) {
 }
 
 let csv: string[][];
+
 let filePath: string;
 
 export function load_csv(filepath: string) {
-  filePath = filepath;
-  // csv = mockedData.get(filepath);
-  if (filepath in datamocked) {
-    csv = datamocked[filepath];
-    console.log("csv: " + datamocked[filepath]);
+  if (filepath != "") {
+    filePath = filepath;
+    // csv = mockedData.get(filepath);
+    if (filepath in datamocked) {
+      csv = datamocked[filepath];
+      console.log("csv: " + datamocked[filepath]);
+    }
+    if (!(filepath in datamocked)) {
+      return "No file found at destination " + filepath;
+      //return exampleCSV3;
+    } else {
+      return "Loading file at destination " + filepath;
+    }
   } else {
-  }
-
-  if (!(filepath in datamocked)) {
-    return "No file found at destination " + filepath;
-    //return exampleCSV3;
-  } else {
-    return "Loading file at destination " + filepath;
+    return "Please provide filepath to load";
   }
 }
+// export function load_csv(params: string[]) {
+//   if (params.length == 0) {
+//     return "No file provided";
+//   }
+//   let csv: CSV;
+//   // Regardless of if verbose is true or not, history gets assigned the same way
+//   // csv = {
+//   //   filepath: filepath,
+//   //   hasHeader: output,
+//   // };
+//   csv.filepath = params[0];
+
+//   if (params.length == 2) {
+//     csv.hasHeader =
+//   }
+//   //filePath = filepath;
+//   // csv = mockedData.get(filepath);
+//   if (filepath in datamocked) {
+//     csv = datamocked[filepath];
+//     console.log("csv: " + datamocked[filepath]);
+//   } else {
+//   }
+
+//   if (!(filepath in datamocked)) {
+//     return "No file found at destination " + filepath;
+//     //return exampleCSV3;
+//   } else {
+//     return "Loading file at destination " + filepath;
+//   }
+// }
 
 export function view_csv() {
   if (csv) {
