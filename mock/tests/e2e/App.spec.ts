@@ -62,8 +62,9 @@ test("on page load, I see a button", async ({ page }) => {
   // TODO WITH TA: Fill this in!
 });
 
-
-test("after I click the button with a bad command, I get feedback that that command is bad", async ({ page }) => {
+test("after I click the button with a bad command, I get feedback that that command is bad", async ({
+  page,
+}) => {
   //await page.goto("http://localhost:8000/");
   await page.getByLabel("Login").click();
   await page.getByLabel("Command input").fill("badinput.csv");
@@ -80,7 +81,7 @@ test("after I enter load, my csv gets loaded", async ({ page }) => {
   const mock_input = "load strings.csv false";
   await page.getByLabel("Command input").fill(mock_input);
   await page.getByLabel("Submit button").click();
-  
+
   await expect(page.getByLabel("repl-history")).toContainText(
     "Loading file at destination"
   );
@@ -99,7 +100,9 @@ test("I can load and view a mocked csv", async ({ page }) => {
   await expect(page.getByLabel("repl-history")).toContainText("song");
 });
 
-test("I can call search after loading, and get the first row of the table", async ({ page }) => {
+test("I can call search after loading, and get the first row of the table", async ({
+  page,
+}) => {
   await page.getByLabel("Login").click();
   const loadCommand = "load strings.csv false";
   await page.getByLabel("Command input").fill(loadCommand);
@@ -113,7 +116,9 @@ test("I can call search after loading, and get the first row of the table", asyn
   await expect(page.getByLabel("repl-history")).toContainText("song");
 });
 
-test("After loading and viewing a csv, I can load and view a different csv", async ({ page }) => {
+test("After loading and viewing a csv, I can load and view a different csv", async ({
+  page,
+}) => {
   await page.getByLabel("Login").click();
 
   // Load and view strings.csv
@@ -137,7 +142,6 @@ test("After loading and viewing a csv, I can load and view a different csv", asy
   await expect(page.getByLabel("repl-history")).toContainText("strings");
 });
 
-
 test("I cannot try to view a csv before loading", async ({ page }) => {
   // NOTE: our implementation has the caveat that loading a csv then trying to load a bad second csv and viewing that one will result in the first csv getting displayed
   //  We do not remove a loaded csv except when overriding it with a new load
@@ -157,11 +161,41 @@ test("I cannot try to search a csv before loading", async ({ page }) => {
   await expect(page.getByLabel("repl-history")).toContainText("No csv loaded");
 });
 
-test("I cannot load without providing a filepath and a header flag", async ({ page }) => {
+test("I cannot load without providing a filepath and a header flag", async ({
+  page,
+}) => {
   await page.getByLabel("Login").click();
   const loadCommand = "load incorrect_arguments";
   await page.getByLabel("Command input").fill(loadCommand);
   await page.getByLabel("Submit button").click();
   // header flag is checked first, even before a bad path is checked
-  await expect(page.getByLabel("repl-history")).toContainText("Missing or incorrect hasHeader argument, please provide the command in the format");
+  await expect(page.getByLabel("repl-history")).toContainText(
+    "Missing or incorrect hasHeader argument, please provide the command in the format"
+  );
+});
+
+test("verbose display changes when user enters mode command", async ({
+  page,
+}) => {
+  await page.getByLabel("Login").click();
+  const modeCommand = "mode";
+  await page.getByLabel("Command input").fill(modeCommand);
+  await page.getByLabel("Submit button").click();
+  await page.getByLabel("Submit button").click();
+  // header flag is checked first, even before a bad path is checked
+  await expect(page.getByLabel("repl-history")).toContainText(
+    "Command: Output: No command given"
+  );
+  const loadCommand = "load strings.csv false";
+  await page.getByLabel("Command input").fill(loadCommand);
+  await page.getByLabel("Submit button").click();
+  await expect(page.getByLabel("repl-history")).toContainText(
+    "Command:  Output: No command givenCommand: loadOutput: Loading file at destination strings.csv"
+  );
+  const modeCommand2 = "mode";
+  await page.getByLabel("Command input").fill(modeCommand);
+  await page.getByLabel("Submit button").click();
+  await expect(page.getByLabel("repl-history")).toContainText(
+    "No command givenLoading file at destination strings.csv"
+  );
 });

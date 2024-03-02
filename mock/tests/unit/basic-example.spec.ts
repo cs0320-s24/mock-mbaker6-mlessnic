@@ -61,8 +61,6 @@ test("Load returns fail with bad filename", () => {
   );
 });
 
-// TODO: add more test cases
-
 test("View returns success with loaded csv", () => {
   let csv = commands.load_csv(["more_strings.csv", "false"]);
   expect(commands.view_csv()).toStrictEqual(datamocked["more_strings.csv"]);
@@ -74,3 +72,17 @@ test("View returns previously loaded csv if load_csv fails", () => {
   expect(commands.view_csv()).toStrictEqual(datamocked["strings.csv"]);
 });
 
+test("Loaded csv is updated when load is called twice", () => {
+  let csv1 = commands.load_csv(["strings.csv", "false"]);
+  expect(commands.load_csv(["more_strings.csv", "true"])).toBe(
+    "Loading file at destination more_strings.csv"
+  );
+});
+
+test("searches previously loaded csv if most recent load fails", () => {
+  let csv1 = commands.load_csv(["strings.csv", "false"]);
+  let csv2 = commands.load_csv(["badcsv.csv", "true"]);
+  expect(commands.search_csv(["value", "1"])).toStrictEqual([
+    datamocked["strings.csv"][0],
+  ]);
+});

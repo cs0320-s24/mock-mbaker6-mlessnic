@@ -12,7 +12,7 @@ export const commandRegistry = new Map();
 type csv = {
   filepath: string;
   hasHeader: boolean;
-}
+};
 
 /**
  * Registers a command with the given name and function (unused here, for user story 6).
@@ -41,15 +41,15 @@ let csvData: csv;
  * @returns {string} A message indicating the result of the operation.
  */
 export function load_csv(args: string[]) {
-  if(args[1] && (args[1] === "true" || args[1] === "false")){
+  if (args[1] && (args[1] === "true" || args[1] === "false")) {
     const hasHdr = args[1] === "true";
     csvData = {
       filepath: args[0],
-      hasHeader: hasHdr
+      hasHeader: hasHdr,
     };
-  } else{
+  } else {
     // Error checking for missing or malformed hasHeader arg
-    return "Missing or incorrect hasHeader argument, please provide the command in the format: \n\"load <filename> true|false\"";
+    return 'Missing or incorrect hasHeader argument, please provide the command in the format: \n"load <filename> true|false"';
   }
 
   // Mocking retrieval/loading of the csv
@@ -83,10 +83,10 @@ export function view_csv() {
 export function search_csv(args: string[]) {
   let output: string[][];
   const [query, columnIndex] = args;
-  output = [[]]
+  output = [];
   if (csv) {
     // arbitrarily get the first row of the mocked data, to test for functionality
-    output.push(csv[0])
+    output.push(csv[0]);
     // console.log(output);
     return output;
   } else {
@@ -109,5 +109,5 @@ datamocked["strings.csv"] = [
 
 datamocked["more_strings.csv"] = [
   ["More", "strings", "for"],
-  ["the", "string", "god"]
+  ["the", "string", "god"],
 ];
