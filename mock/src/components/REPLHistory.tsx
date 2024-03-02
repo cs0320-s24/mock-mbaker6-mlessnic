@@ -23,7 +23,7 @@ export function REPLHistory(props: REPLHistoryProps) {
             )}
             {/* Render output as a table if it's a 2D array */}
             {Array.isArray(element.Output) && (
-              <table>
+              <table className="center">
                 <tbody>
                   {element.Output.map((row, rowIdx) => (
                     <tr key={rowIdx}>
