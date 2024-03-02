@@ -9,9 +9,10 @@ import { expect, test } from "@playwright/test";
  */
 
 // If you needed to do something before every test case...
-test.beforeEach(() => {
+test.beforeEach(async ({ page }) => {
   // ... you'd put it here.
   // TODO: Is there something we need to do before every test case to avoid repeating code?
+  await page.goto("http://localhost:8000/");
 });
 
 /**
@@ -22,15 +23,15 @@ test.beforeEach(() => {
  */
 test("on page load, i see a login button", async ({ page }) => {
   // Notice: http, not https! Our front-end is not set up for HTTPs.
-  await page.goto("http://localhost:8000/");
+  //await page.goto("http://localhost:8000/");
   await expect(page.getByLabel("Login")).toBeVisible();
 });
 
 test("on page load, i dont see the input box until login", async ({ page }) => {
   // Notice: http, not https! Our front-end is not set up for HTTPs.
-  await page.goto("http://localhost:8000/");
+  //await page.goto("http://localhost:8000/");
   await expect(page.getByLabel("Sign Out")).not.toBeVisible();
-  await expect(page.getByLabel("Command input")).not.toBeVisible();
+  await expect(page.getByText("Enter command here!")).not.toBeVisible();
 
   // click the login button
   await page.getByLabel("Login").click();
@@ -40,7 +41,7 @@ test("on page load, i dont see the input box until login", async ({ page }) => {
 
 test("after I type into the input box, its text changes", async ({ page }) => {
   // Step 1: Navigate to a URL
-  await page.goto("http://localhost:8000/");
+  //await page.goto("http://localhost:8000/");
   await page.getByLabel("Login").click();
 
   // Step 2: Interact with the page
@@ -55,7 +56,7 @@ test("after I type into the input box, its text changes", async ({ page }) => {
 });
 
 test("on page load, I see a button", async ({ page }) => {
-  await page.goto("http://localhost:8000/");
+  //await page.goto("http://localhost:8000/");
   await page.getByLabel("Login").click();
   await expect(page.getByLabel("Submit button")).toBeVisible();
   // TODO WITH TA: Fill this in!
@@ -72,12 +73,14 @@ test("on page load, I see a button", async ({ page }) => {
 // });
 
 test("after I click the button, my command gets pushed", async ({ page }) => {
-  await page.goto("http://localhost:8000/");
+  //await page.goto("http://localhost:8000/");
   await page.getByLabel("Login").click();
-  await page.getByLabel("Command input").fill("Awesome command");
+  await page.getByLabel("Command input").fill("badinput.csv");
   await page.getByLabel("Submit button").click();
-  const mock_input = `Awesome command`;
-  await expect(page.getByLabel("repl-history")).toHaveValue(mock_input);
+  const mock_input = "badinput.csv";
+  await expect(page.getByLabel("repl-history")).toContainText(
+    "Command " + mock_input + " not found"
+  );
   // TODO: Fill this in to test your button push functionality!
 });
 
